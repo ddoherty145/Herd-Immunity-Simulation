@@ -51,6 +51,7 @@ if __name__ == "__main__":
     assert infected_person.is_vaccinated is False
     assert infected_person.infection == virus
 
+    #simulate the survival of 100 people
     people = [Person(1, False, virus) for i in range(1, 101)]
     did_survive = 0
     did_not_survive = 0
@@ -66,34 +67,17 @@ if __name__ == "__main__":
     print(f"Mortality rate (expected): {virus.mortality_rate}")
     print(f"Mortality rate (observed): {did_not_survive / len(people):.2f}")
 
-    # Now that you have a list of 100 people. Resolve whether the Person 
-    # survives the infection or not by looping over the people list. 
 
-    # for person in people:
-    #     # For each person call that person's did_survive_infection method
-    #     survived = person.did_survive_infection()
+    # Stretch challenge! Infection Rate
+    uninfected_people = [Person(i, False) for i in range(101, 201)]
+    infected_count = 0
 
-    # Count the people that survived and did not survive: 
-   
-    # did_survived = 0
-    # did_not_survive = 0
+    for person in uninfected_people:
+        if random.random() < virus.repro_rate:
+            person.infection = virus 
+            infected_count += 1
 
-    # TODO Loop over all of the people 
-    # TODO If a person is_alive True add one to did_survive
-    # TODO If a person is_alive False add one to did_not_survive
-
-    # TODO When the loop is complete print your results.
-    # The results should roughly match the mortality rate of the virus
-    # For example if the mortality rate is 0.2 rough 20% of the people 
-    # should succumb. 
-
-    # Stretch challenge! 
-    # Check the infection rate of the virus by making a group of 
-    # unifected people. Loop over all of your people. 
-    # Generate a random number. If that number is less than the 
-    # infection rate of the virus that person is now infected. 
-    # Assign the virus to that person's infection attribute. 
-
-    # Now count the infected and uninfect people from this group of people. 
-    # The number of infectedf people should be roughly the same as the 
-    # infection rate of the virus.
+    print(f"Infected: {infected_count}")
+    print(f"Uninfected: {len(uninfected_people) - infected_count}")
+    print(f"Infection rate (expected): {virus.repro_rate}")
+    print(f"Infection rate (observed): {infected_count / len(uninfected_people):.2f}")
