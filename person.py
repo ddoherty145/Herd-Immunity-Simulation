@@ -38,25 +38,33 @@ if __name__ == "__main__":
 
     # Create an unvaccinated person and test their attributes
     unvaccinated_person = Person(2, False)
-    # TODO Test unvaccinated_person's attributes here...
+    assert unvaccinated_person._id == 2
+    assert unvaccinated_person.is_alive is True
+    assert unvaccinated_person.is_vaccinated is False
+    assert unvaccinated_person.infection is None
 
-    # Test an infected person. An infected person has an infection/virus
-    # Create a Virus object to give a Person object an infection
+    # Test an infected person. 
     virus = Virus("Dysentery", 0.7, 0.2)
-    # Create a Person object and give them the virus infection
     infected_person = Person(3, False, virus)
-    # TODO: complete your own assert statements that test
-    # the values of each attribute
-    # assert ...
+    assert infected_person._id == 3
+    assert infected_person.is_alive is True
+    assert infected_person.is_vaccinated is False
+    assert infected_person.infection == virus
 
-    # You need to check the survival of an infected person. Since the chance
-    # of survival is random you need to check a group of people. 
-    # Create a list to hold 100 people. Use the loop below to make 100 people
-    people = []
-    for i in range(1, 100):
-        # TODO Make a person with an infection
-        # TODO Append the person to the people list
-        pass
+    people = [Person(1, False, virus) for i in range(1, 101)]
+    did_survive = 0
+    did_not_survive = 0
+
+    for person in people:
+        if person.did_survive_infection():
+            did_survive += 1
+        else:
+            did_not_survive += 1
+
+    print(f"Survived: {did_survive}")
+    print(f"Did not survive: {did_not_survive}")
+    print(f"Mortality rate (expected): {virus.mortality_rate}")
+    print(f"Mortality rate (observed): {did_not_survive / len(people):.2f}")
 
     # Now that you have a list of 100 people. Resolve whether the Person 
     # survives the infection or not by looping over the people list. 
