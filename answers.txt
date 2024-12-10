@@ -1,0 +1,9 @@
+1. What were the inputs you gave the simulation? (Population size, percent vaccinated, virus name, mortality rate, reproductive rate)
+
+    The inputs that i gave the simulation are a pop_size of 100000, a vacc_percentage of 90%, the virus_name of Ebola, a mortality_rate of 70% and repro_rate of 25%.
+
+2. What percentage of the population became infected at some point before the virus burned out?
+
+    The virus burn out after 41 days and it infected rouchly 10% of the population
+
+3. 

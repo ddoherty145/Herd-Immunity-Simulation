@@ -28,6 +28,7 @@ class Logger:
             file.write(f"  Deaths: {deaths}\n")
             file.write("\n")
 
+
     def log_final_summary(self, time_steps, pop_size, survivors, deaths, vaccinated):
         '''
         Log the final summary of the simulation.
@@ -40,3 +41,12 @@ class Logger:
             file.write(f"Deaths: {deaths}\n")
             file.write(f"Vaccinated Survivors: {vaccinated}\n")
             file.write("\n")
+
+    def log_total_infections(self, total_infected):
+            '''
+            Log the total number of infections
+            '''
+            with open(self.file_name, 'a') as file:
+                file.write(f"--- Total Infections ---\n")
+                file.write(f"Total Infected: {total_infected}\n")
+                file.write("\n")

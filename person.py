@@ -11,6 +11,12 @@ class Person(object):
         self.is_vaccinated = is_vaccinated
         self.infection = infection
         self.is_alive = True
+        self.has_dead = False
+
+    def check_for_death(self):
+        if self.infection and not self.is_vaccinated and random.random() < self.infection.mortality_rate:
+            self.is_alive = False
+            self.has_dead = True
 
     def did_survive_infection(self):
         # This method checks if a person survived an infection. 

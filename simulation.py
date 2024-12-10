@@ -6,10 +6,11 @@ from virus import Virus
 
 
 class Simulation(object):
-    def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1):
+    def __init__(self, virus, pop_size, vacc_percentage, initial_infected=1,):
         '''
         Initialize the simulation 
         '''
+        print("Initializing simulation...")
         self.logger = Logger("simulation_log.txt")
         self.virus = virus
         self.pop_size = pop_size
@@ -17,6 +18,9 @@ class Simulation(object):
         self.initial_infected = initial_infected
         self.population = self._create_population()
         self.newly_infected = []
+        # self.infected_count = 0
+
+        # print(f"Simulation Initialized. Infected count: {self.infected_count}")
 
         self.logger.write_metadata(
             pop_size, vacc_percentage, virus.name, virus.mortality_rate, virus.repro_rate
@@ -30,6 +34,7 @@ class Simulation(object):
         for i in range(self.pop_size):
             if i < self.initial_infected:
                 population.append(Person(i, is_vaccinated=False, infection=self.virus))
+                # self.infected_count += 1
             else:
                 is_vaccinated = random.random() < self.vacc_percentage
                 population.append(Person(i, is_vaccinated=is_vaccinated))
@@ -44,22 +49,6 @@ class Simulation(object):
             return False
         return True
 
-    def run(self):
-        '''
-        Runs Simulation
-        '''
-        time_step_counter = 0
-        while self._simulation_should_continue():
-            time_step_counter += 1
-            self.time_step()
-        # log final results
-        alive_people = [p for p in self.population if p.is_alive]
-        vaccinated_count = sum(1 for p in alive_people if p.is_vaccinated)
-        dead_count = self.pop_size - len(alive_people)
-        self.logger.log_final_summary(
-            time_step_counter, self.pop_size, len(alive_people), dead_count, vaccinated_count
-        )
-
     def time_step(self):
         '''
         simulates a single time step, including interactions and infection updates
@@ -72,7 +61,41 @@ class Simulation(object):
                     if random_person.is_alive and random_person != person:
                         self.interaction(person, random_person)
                         interactions += 1
+
+                person.check_for_death()
+
         self._infect_newly_infected()
+
+    def run(self):
+        '''
+        Runs Simulation
+        '''
+        print("Starting Simulation...")
+        time_step_counter = 0
+        while self._simulation_should_continue():
+            time_step_counter += 1
+            self.time_step()
+
+            # log final results
+            alive = len([p for p in self.population if p.is_alive])
+            dead = self.pop_size - alive
+            self.logger.log_infection_survival(time_step_counter, alive, dead)
+
+        survivors = len([p for p in self.population if p.is_alive])
+        vaccinated = sum([1 for p in self.population if p.is_alive and p.is_vaccinated])
+        deaths = self.pop_size - survivors
+        self.logger.log_final_summary(time_step_counter, self.pop_size, survivors, deaths, vaccinated)
+
+        # self.logger.log_total_infections(self.infected_count)
+
+        clear_log = input("Would you like to clear the log file after this simulation? (y/n): ")
+        if clear_log.lower() == 'y':
+            with open(self.logger.file_name, 'w') as file:
+                file.write("")  # Clear contents
+            print(f"Log file '{self.logger.file_name}' has been cleared.")
+        else:
+            print("Log file was not cleared.")
+
 
     def interaction(self, infected_person, random_person):
         '''
@@ -83,6 +106,7 @@ class Simulation(object):
         
         if random.random() < self.virus.repro_rate:
             self.newly_infected.append(random_person)
+            # self.infected_count += 1
 
     def _infect_newly_infected(self):
         '''
