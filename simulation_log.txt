@@ -1,24 +1,24 @@
-Simulation Metadata:
+Simulation Log
+===============================
+Simulation Metadata
+-------------------------------
+Population: 1000
+Vaccination Rate: 0.1
+Virus: Sniffles
+Mortality Rate: 0.12
+Reproduction Rate: 0.5
+===============================
+--- New Simulation ---
 Population Size: 1000
 Vaccination Percentage: 0.1
 Virus Name: Sniffles
 Mortality Rate: 0.12
-Basic Reproduction Number: 0.5
-===========================================
-
-
---- New Simulation ---
-Population Size: 1000
-Vaccination Percentage: 0.1
-Virus: Sniffles
-Mortality Rate: 0.12
-Reproduction Rate: 0.5
-
+Reproductive Rate: 0.5
 
 --- New Simulation ---
 Population Size: 100000
 Vaccination Percentage: 0.9
-Virus: Ebola
+Virus Name: Ebola
 Mortality Rate: 0.25
-Reproduction Rate: 0.7
+Reproductive Rate: 0.7
 

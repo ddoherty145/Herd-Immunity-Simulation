@@ -26,6 +26,18 @@ class Person(object):
                 self.infection = None
                 return True
         return None #No infection to check 
+    
+def test_survive_infection():
+    virus = Virus("TestVirus", 0.5, 0.25)
+    person = Person(1, False, virus)
+    survived = person.did_survive_infection()
+    assert survived in [True, False]
+
+def test_vaccinated_person():
+    person = Person(2, True)
+    assert person.is_vaccinated
+    assert person.infection is None
+
 
 if __name__ == "__main__":
     # This section is incomplete finish it and use it to test your Person class
