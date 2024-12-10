@@ -94,19 +94,23 @@ class Simulation(object):
 
 
 if __name__ == "__main__":
-    # Test your simulation here
-    virus_name = "Sniffles"
-    repro_num = 0.5
-    mortality_rate = 0.12
+    # Check if the correct number of arguments is provided
+    if len(sys.argv) != 7:
+        print("Usage: python3 simulation.py <population_size> <vaccination_percentage> <virus_name> <repro_rate> <mortality_rate> <initial_infected>")
+        sys.exit(1)
+
+    # Parse command-line arguments
+    pop_size = int(sys.argv[1])
+    vacc_percentage = float(sys.argv[2])
+    virus_name = sys.argv[3]
+    repro_num = float(sys.argv[4])
+    mortality_rate = float(sys.argv[5])
+    initial_infected = int(sys.argv[6])
+
+    # Create the Virus object
     virus = Virus(virus_name, repro_num, mortality_rate)
 
-    # Set some values used by the simulation
-    pop_size = 1000
-    vacc_percentage = 0.1
-    initial_infected = 10
-
-
+    # Initialize and run the Simulation
     sim = Simulation(virus, pop_size, vacc_percentage, initial_infected)
-
-
     sim.run()
+
