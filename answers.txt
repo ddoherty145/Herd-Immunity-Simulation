@@ -4,6 +4,12 @@
 
 2. What percentage of the population became infected at some point before the virus burned out?
 
-    The virus burn out after 41 days and it infected rouchly 10% of the population
+    The virus burn out after 40 days and it infected rouchly 20% of the population being infected before the virus burned out.
 
-3. 
+3. What percentage of the population died from the virus?
+
+    From my simulation it looks like rouchly 1% of the population died from the virus?
+
+4. Out of all interactions sick individuals had during the entire simulation, how many times, in total, did a vaccination save someone from potentially becoming infected?
+
+    From my information it looks like roughly 90% of the people vaccinated where saved from the virus.
